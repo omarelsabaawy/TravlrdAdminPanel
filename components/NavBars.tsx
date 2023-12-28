@@ -38,15 +38,6 @@ function SideBar() {
                     <span className=" text-2xl font-semibold whitespace-nowrap text-gray-900">Admin Dashboard</span>
                 </a>
                 </div>
-                <div className="w-full block w-auto">
-                    <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 space-x-8 rtl:space-x-reverse flex-row mt-0 border-0 bg-white">
-                          <li>
-                            <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                                <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
-                            </div>
-                          </li>
-                    </ul>
-                </div>
             </div>
         </nav>
 
