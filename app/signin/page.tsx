@@ -1,4 +1,21 @@
+"use client"
+
+import createSuperAdmin from "@/lib/services/Auth/createSuperAdmin";
+import { useEffect } from "react";
+
 export default function SignIn() {
+
+    const createTheFirstAdmin = async (): Promise<void> => {
+        const email = 'omarelsabaawy77@gmail.com';
+
+        await createSuperAdmin(email);
+        
+    }
+
+    useEffect(() => {
+        createTheFirstAdmin();
+    })
+
   return (
     <div className="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0">
         <a className="flex items-center justify-center mb-8 text-3xl font-semibold lg:mb-10 text-white">
