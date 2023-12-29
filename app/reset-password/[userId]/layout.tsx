@@ -8,14 +8,15 @@ export const metadata: Metadata = {
   description: 'Rest the password page',
 }
 
-export default function RootLayout({
+export default function ResetPasswordLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  
   return (
     <html lang="en">
       <body className={inter.className}>{children}</body>
     </html>
-  )
+  );
 }

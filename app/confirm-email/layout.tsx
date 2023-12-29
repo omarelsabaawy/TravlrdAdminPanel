@@ -4,11 +4,11 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Sign In',
-  description: 'Sign in as an admin',
+  title: 'Email is Confirmed',
+  description: 'Page to confirm the email',
 }
 
-export default function SignInLayout({
+export default function ConfirmEmailLayout({
   children,
 }: {
   children: React.ReactNode
@@ -17,5 +17,5 @@ export default function SignInLayout({
     <html lang="en">
       <body className={inter.className}>{children}</body>
     </html>
-  );
+  )
 }
