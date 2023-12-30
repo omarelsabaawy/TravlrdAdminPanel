@@ -15,7 +15,7 @@ const AddAdmin: React.FC<AddAdminProps> = ({ isAddAdminModalOpen, onClose }) => 
   const [email, setEmail] = useState<string>("");
   const [userRole, setUserRole] = useState<string>("Super Admin");
   const [loading, setLoading] = useState<boolean>(false);
-  const router = useRouter();
+  // const router = useRouter();
   
   const handleNewAdmin = async (event: any) => {
     event.preventDefault();
@@ -25,13 +25,13 @@ const AddAdmin: React.FC<AddAdminProps> = ({ isAddAdminModalOpen, onClose }) => 
         const response = await createSuperAdmin(email);
         if (response) {
           setLoading(false);
-          router.push("/admins");
+          // router.push("/admins");
         }
       } else {
         const response = await createAdmin(email);
         if (response) {
           setLoading(false);
-          router.push("/admins");
+          // router.push("/admins");
         }
       }
     } catch (error: any) {
@@ -76,9 +76,9 @@ const AddAdmin: React.FC<AddAdminProps> = ({ isAddAdminModalOpen, onClose }) => 
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                   />
                 </svg>
@@ -104,7 +104,7 @@ const AddAdmin: React.FC<AddAdminProps> = ({ isAddAdminModalOpen, onClose }) => 
                   <Spinner />
                   : (
                   <>
-                  <svg className="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                  <svg className="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd"></path></svg>
                   New Admin
                 </>)}
               </button>
