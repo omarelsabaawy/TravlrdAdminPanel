@@ -7,8 +7,8 @@ import AddAdminButton from '@/components/Admin/AddAdminButton';
 import AddAdmin from '@/components/Admin/AddAdmin';
 
 const Admins: React.FC = () => {
-    // const userData = Cookies.get('userData');
-    // const user = userData ? JSON.parse(userData) : null;
+    const userData = Cookies.get('userData');
+    const user = userData ? JSON.parse(userData) : null;
     const [isAddAdminModalOpen, setIsAddAdminModalOpen] = useState<boolean>(false);
 
     const handleOpenAddAdmin = () => {
@@ -29,9 +29,9 @@ const Admins: React.FC = () => {
                             <caption className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
                                 <div className='flex justify-between'>
                                     <h1 className='text-2xl'>Admin users</h1>
-                                    {/* {user?.user_role === "Super Admin" && (
+                                    {user?.userRole === "Super Admin" && (
                                         <AddAdminButton onClick={handleOpenAddAdmin}/>
-                                    )} */}
+                                    )}
                                 </div>
                             </caption>
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 rounded-md">
@@ -46,9 +46,9 @@ const Admins: React.FC = () => {
                                         Admin Role
                                     </th>
                                     <th scope="col" className="px-6 py-3">
-                                        {/* {
-                                            user?.user_role === "Super Admin" ? "Actions" : <del>Actions</del>
-                                        } */}
+                                        {
+                                            user?.userRole === "Super Admin" ? "Actions" : <del>Actions</del>
+                                        }
                                     </th>
                                 </tr>
                             </thead>
@@ -64,8 +64,8 @@ const Admins: React.FC = () => {
                                         Laptop
                                     </td>
                                     <td className="px-6 py-4">
-                                        {/* {
-                                            user?.user_role === "Super Admin" ?
+                                        {
+                                            user?.userRole === "Super Admin" ?
                                                 <div>
                                                     <a href="#" className="font-medium text-blue-600 hover:underline">Edit</a>
                                                     <a href="#" className="font-medium text-red-600 hover:underline ml-3">Delete</a>
@@ -75,7 +75,7 @@ const Admins: React.FC = () => {
                                                     <del className="font-medium text-blue-600">Edit</del>
                                                     <del className="font-medium text-red-600 ml-3">Delete</del>
                                                 </div>
-                                        } */}
+                                        }
                                     </td>
                                 </tr>
                             </tbody>

@@ -29,7 +29,7 @@ const signIn = async (email: string, password: string): Promise<any> => {
         }
                 
         return {
-            user: { user_id: user.id, email: user.email, user_role: data?.at(0)?.user_role },
+            user: { user_id: user.id, email: user.email, userRole: data?.at(0)?.user_role },
             success: true
         }
     } catch (error: any) {

@@ -9,12 +9,7 @@ const SignIn: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const user = Cookies.get('userData');
     const router = useRouter();
-
-    if (user) {
-        router.push('/');
-    }
 
     const handleSignIn = async (event: any): Promise<void> => {
         event.preventDefault();
@@ -22,7 +17,7 @@ const SignIn: React.FC = () => {
             setLoading(true);
             const data: any = await signIn(email, password);
             if (data.success) {
-                Cookies.set('userData', JSON.stringify(data.user), { expires: 30 });
+                Cookies.set('userData', JSON.stringify(data.user));
                 router.push('/');
             }
             setLoading(false);
