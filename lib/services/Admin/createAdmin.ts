@@ -1,7 +1,7 @@
 import { supabase } from '../../db/supabase';
 import { AuthResponse } from '@supabase/supabase-js';
 
-const createAdmin = async (email: string): Promise<void> => {
+const createAdmin = async (email: string): Promise<any> => {
     try {
       const randomPassword = "123456789";
       
@@ -9,7 +9,7 @@ const createAdmin = async (email: string): Promise<void> => {
         email,
         password: randomPassword,
         options: {
-          emailRedirectTo: process.env.NEXT_APP_CONFIRM_EMAIL_URL
+          emailRedirectTo: process.env.NEXT_PUBLIC_CONFIRM_EMAIL_URL
         }
       });
 
@@ -24,7 +24,7 @@ const createAdmin = async (email: string): Promise<void> => {
       }
       
       await supabase.auth.resetPasswordForEmail(email, {
-          redirectTo: `${process.env.NEXT_APP_RESET_PASSWORD_URL}/${user.email}`,
+          redirectTo: `${process.env.NEXT_PUBLIC_RESET_PASSWORD_URL}/${user.email}`,
       })
     
       await supabase
@@ -34,6 +34,8 @@ const createAdmin = async (email: string): Promise<void> => {
         email: user.email,
         user_role: 'Admin'
       });
+
+      return true;
       
   } catch (error: any) {
     console.error('Error creating admin:', error.message);
