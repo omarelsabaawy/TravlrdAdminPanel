@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from 'react'
 import NavBars from '@/components/NavBars';
 import Cookies from 'js-cookie';
-// import { useRouter } from 'next/navigation';
 import AddAdminButton from '@/components/Admin/AddAdminButton';
 import AddAdmin from '@/components/Admin/AddAdmin';
 import EditAdminButton from '@/components/Admin/EditAdminButton';
 import DeleteAdminButton from '@/components/Admin/DeleteAdminButton';
 import EditAdmin from '@/components/Admin/EditAdmin';
 import DeleteAdmin from '@/components/Admin/DeleteAdmin';
+import getAdmins from '@/lib/services/Admin/getAdmins';
 
 const Admins: React.FC = () => {
     const userData = Cookies.get('userData');
@@ -16,6 +16,8 @@ const Admins: React.FC = () => {
     const [isAddAdminModalOpen, setIsAddAdminModalOpen] = useState<boolean>(false);
     const [isEditAdminModalOpen, setIsEditAdminModalOpen] = useState<boolean>(false);
     const [isDeleteAdminModalOpen, setIsDeleteAdminModalOpen] = useState<boolean>(false);
+    const [currentAdminId, setCurrentAdminId] = useState<string>("");
+    const [admins, setAdmins] = useState<any[]>([]);
 
     const handleOpenAddAdmin = () => {
         setIsAddAdminModalOpen(!isAddAdminModalOpen);
@@ -25,7 +27,8 @@ const Admins: React.FC = () => {
         setIsAddAdminModalOpen(false);
     };
 
-    const handleOpenEditAdmin = () => {
+    const handleOpenEditAdmin = (adminId: string) => {
+        setCurrentAdminId(adminId);
         setIsEditAdminModalOpen(!isEditAdminModalOpen);
     };
   
@@ -33,13 +36,22 @@ const Admins: React.FC = () => {
         setIsEditAdminModalOpen(false);
     };
 
-    const handleOpenDeleteAdmin = () => {
+    const handleOpenDeleteAdmin = (adminId: string) => {
+        setCurrentAdminId(adminId);
         setIsDeleteAdminModalOpen(!isDeleteAdminModalOpen);
     };
   
     const handleCloseDeleteAdmin = () => {
         setIsDeleteAdminModalOpen(false);
     };
+
+    useEffect(() => {
+        const fetchAdmins = async () => {
+            const data = await getAdmins(user.userRole);
+            setAdmins(data);
+        };
+        fetchAdmins();
+    }, [user]);
 
     return (
         <div>
@@ -48,14 +60,14 @@ const Admins: React.FC = () => {
                 <div className="p-1 sm:ml-64">
                     <div className="relative overflow-x-auto overflow-y-auto min-h-96 max-h-96 rounded-md">
                         <AddAdmin isAddAdminModalOpen={isAddAdminModalOpen} onClose={handleCloseAddAdmin} />
-                        <EditAdmin isEditAdminModalOpen={isEditAdminModalOpen} onClose={handleCloseEditAdmin} />
-                        <DeleteAdmin isDeleteAdminModalOpen={isDeleteAdminModalOpen} onClose={handleCloseDeleteAdmin} />
+                        <EditAdmin isEditAdminModalOpen={isEditAdminModalOpen} onClose={handleCloseEditAdmin} adminId={currentAdminId} />
+                        <DeleteAdmin isDeleteAdminModalOpen={isDeleteAdminModalOpen} onClose={handleCloseDeleteAdmin} adminId={currentAdminId} />
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 rounded-md">
                             <caption className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
                                 <div className='flex justify-between'>
                                     <h1 className='text-2xl'>Admin users</h1>
                                     {user?.userRole === "Super Admin" && (
-                                        <AddAdminButton onClick={handleOpenAddAdmin}/>
+                                        <AddAdminButton onClick={handleOpenAddAdmin} />
                                     )}
                                 </div>
                             </caption>
@@ -78,41 +90,38 @@ const Admins: React.FC = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Apple MacBook Pro 17
-                                    </th>
-                                    <td className="px-6 py-4">
-                                        Silver
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        Laptop
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        {
-                                            user?.userRole === "Super Admin" ?
-                                                <div>
-                                                    <EditAdminButton onClick={handleOpenEditAdmin}/>
-                                                    <DeleteAdminButton onClick={handleOpenDeleteAdmin} />
-                                                </div>
-                                                :
-                                                <div>
-                                                    <del className="font-medium text-blue-600">Edit</del>
-                                                    <del className="font-medium text-red-600 ml-3">Delete</del>
-                                                </div>
-                                        }
-                                    </td>
-                                </tr>
+                                {admins.length === 0 ? (
+                                    <>Not found</>
+                                ) : (
+                                    admins.map((admin) => (
+                                        <tr key={admin.user_id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {admin.user_id}
+                                            </th>
+                                            <td className="px-6 py-4">
+                                                {admin.email}
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                {admin.user_role}
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                {user?.userRole === "Super Admin" ? (
+                                                    <div>
+                                                        <EditAdminButton onClick={() => handleOpenEditAdmin(admin.user_id)} />
+                                                        <DeleteAdminButton onClick={() => handleOpenDeleteAdmin(admin.user_id)} />
+                                                    </div>
+                                                ) : (
+                                                    <div>
+                                                        <del className="font-medium text-blue-600">Edit</del>
+                                                        <del className="font-medium text-red-600 ml-3">Delete</del>
+                                                    </div>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
                             </tbody>
                         </table>
-                    </div>
-                    <div className="mt-3 flex justify-end">
-                        <button className="px-4 py-2 mr-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold rounded">
-                            Prev
-                        </button>
-                        <button className="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
-                            Next
-                        </button>
                     </div>
                 </div>
             </div>

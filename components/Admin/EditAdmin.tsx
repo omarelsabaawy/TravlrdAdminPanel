@@ -7,10 +7,11 @@ import Spinner from '../Spinner';
 
 interface EditAdminProps {
   isEditAdminModalOpen: boolean;
+  adminId: string;
   onClose: () => void;
 }
 
-const EditAdmin: React.FC<EditAdminProps> = ({ isEditAdminModalOpen, onClose }) => {
+const EditAdmin: React.FC<EditAdminProps> = ({ isEditAdminModalOpen, onClose, adminId }) => {
   const [email, setEmail] = useState<string>("");
   const [userRole, setUserRole] = useState<string>("Super Admin");
   const [loading, setLoading] = useState<boolean>(false);

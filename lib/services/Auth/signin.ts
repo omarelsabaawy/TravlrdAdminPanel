@@ -3,6 +3,13 @@ import { AuthResponse } from '@supabase/supabase-js';
 
 const signIn = async (email: string, password: string): Promise<any> => {
     try {
+
+        const userExists: any = await supabase.from("Users").select().eq("email", email);
+
+        if (userExists.data.length === 0) {
+            throw new Error("User Doesn't exists");
+        }
+
         const response: AuthResponse = await supabase.auth.signInWithPassword({
             email: email,
             password: password,
