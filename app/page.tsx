@@ -1,7 +1,7 @@
 "use client"
-import { useEffect } from 'react';
 import NavBars from '@/components/NavBars';
-import PieChart from '@/components/PieChart';
+import PieChart from '@/components/Home/PieChart';
+import LineChart from '@/components/Home/LineChart';
 
 const Home = () => {
   return (
@@ -12,10 +12,10 @@ const Home = () => {
           <div className="p-1">
             <div className="grid grid-cols-1 gap-4 mb-1">
               <div className="flex items-center justify-left mt-2 h-50 rounded">
-                {/* <PieChart /> */}
+                <PieChart />
               </div>
-              <div className="flex items-center justify-left mt-2 h-50 rounded bg-gray-50 dark:bg-gray-800">
-                Line Chart should be here
+              <div className="flex items-center justify-left mt-2 h-50 rounded">
+                <LineChart/>
               </div>
             </div>
           </div>
