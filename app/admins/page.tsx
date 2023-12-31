@@ -17,6 +17,8 @@ const Admins: React.FC = () => {
     const [isEditAdminModalOpen, setIsEditAdminModalOpen] = useState<boolean>(false);
     const [isDeleteAdminModalOpen, setIsDeleteAdminModalOpen] = useState<boolean>(false);
     const [currentAdminId, setCurrentAdminId] = useState<string>("");
+    const [currentAdminEmail, setCurrentAdminEmail] = useState<string>("");
+    const [currentAdminRole, setCurrentAdminRole] = useState<string>("");
     const [admins, setAdmins] = useState<any[]>([]);
 
     const handleOpenAddAdmin = () => {
@@ -27,8 +29,10 @@ const Admins: React.FC = () => {
         setIsAddAdminModalOpen(false);
     };
 
-    const handleOpenEditAdmin = (adminId: string) => {
+    const handleOpenEditAdmin = (adminId: string, adminEmail: string, adminRole: string) => {
         setCurrentAdminId(adminId);
+        setCurrentAdminEmail(adminEmail);
+        setCurrentAdminRole(adminRole);
         setIsEditAdminModalOpen(!isEditAdminModalOpen);
     };
   
@@ -60,7 +64,7 @@ const Admins: React.FC = () => {
                 <div className="p-1 sm:ml-64">
                     <div className="relative overflow-x-auto overflow-y-auto min-h-96 max-h-96 rounded-md">
                         <AddAdmin isAddAdminModalOpen={isAddAdminModalOpen} onClose={handleCloseAddAdmin} />
-                        <EditAdmin isEditAdminModalOpen={isEditAdminModalOpen} onClose={handleCloseEditAdmin} adminId={currentAdminId} />
+                        <EditAdmin isEditAdminModalOpen={isEditAdminModalOpen} onClose={handleCloseEditAdmin} adminId={currentAdminId} adminEmail={currentAdminEmail} adminRole={currentAdminRole} />
                         <DeleteAdmin isDeleteAdminModalOpen={isDeleteAdminModalOpen} onClose={handleCloseDeleteAdmin} adminId={currentAdminId} />
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 rounded-md">
                             <caption className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
@@ -105,9 +109,9 @@ const Admins: React.FC = () => {
                                                 {admin.user_role}
                                             </td>
                                             <td className="px-6 py-4">
-                                                {user?.userRole === "Super Admin" ? (
+                                                {user.user_id === admin.user_id ? <></> :user?.userRole === "Super Admin" ? (
                                                     <div>
-                                                        <EditAdminButton onClick={() => handleOpenEditAdmin(admin.user_id)} />
+                                                        <EditAdminButton onClick={() => handleOpenEditAdmin(admin.user_id, admin.email, admin.user_role)} />
                                                         <DeleteAdminButton onClick={() => handleOpenDeleteAdmin(admin.user_id)} />
                                                     </div>
                                                 ) : (

@@ -2,6 +2,7 @@ import { supabase } from '../../db/supabase';
 
 const deleteAdmin = async (adminId: string): Promise<any> => {
     try {
+        
         const { error } = await supabase
             .from('Users')
             .delete()

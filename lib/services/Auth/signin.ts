@@ -15,6 +15,12 @@ const signIn = async (email: string, password: string): Promise<any> => {
             password: password,
         });
 
+        await supabase.auth.updateUser({
+            data: {
+                roles: ['admin']
+            }
+        });
+
         if (response.error || !response.data) {
             throw new Error(`Error Signing in: ${response.error?.message}`);
         }

@@ -4,13 +4,13 @@ import { AuthResponse } from '@supabase/supabase-js';
 const createSuperAdmin = async (email: string): Promise<any> => {
     try {
       const randomPassword = "123456789";
-      
+
       const response: AuthResponse = await supabase.auth.signUp({
         email,
         password: randomPassword,
         options: {
           emailRedirectTo: process.env.NEXT_PUBLIC_CONFIRM_EMAIL_URL
-        }
+        },
       });
 
       if (response.error || !response.data) {

@@ -1,36 +1,43 @@
 "use client"
 
-import createAdmin from '@/lib/services/Admin/createAdmin';
-import createSuperAdmin from '@/lib/services/Admin/createSuperAdmin';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Spinner from '../Spinner';
+import updateAdmin from '@/lib/services/Admin/updateAdmin';
+import { useRouter } from 'next/navigation';
 
 interface EditAdminProps {
   isEditAdminModalOpen: boolean;
   adminId: string;
+  adminEmail: string;
+  adminRole: string;
   onClose: () => void;
 }
 
-const EditAdmin: React.FC<EditAdminProps> = ({ isEditAdminModalOpen, onClose, adminId }) => {
-  const [email, setEmail] = useState<string>("");
-  const [userRole, setUserRole] = useState<string>("Super Admin");
+const EditAdmin: React.FC<EditAdminProps> = ({ isEditAdminModalOpen, onClose, adminId, adminEmail, adminRole }) => {
+  const [email, setEmail] = useState<string>(adminEmail);
+  const [userRole, setUserRole] = useState<string>(adminRole);
   const [loading, setLoading] = useState<boolean>(false);
-  
+  const router = useRouter();
+
+  useEffect(() => {
+    setEmail(adminEmail);
+    setUserRole(adminRole);
+  }, [adminEmail, adminRole]);
+
+
   const handleEditAdmin = async (event: any) => {
     event.preventDefault();
     try {
+      
       setLoading(true);
-      if (userRole === "Super Admin") {
-        const response = await createSuperAdmin(email);
-        if (response) {
-          setLoading(false);
-        }
-      } else {
-        const response = await createAdmin(email);
-        if (response) {
-          setLoading(false);
-        }
+
+      const response = await updateAdmin(adminId, email, userRole);
+
+      if (response) {
+        setLoading(false);
+        router.refresh();
       }
+
     } catch (error: any) {
       setLoading(false);
       console.error(error.message);
@@ -86,11 +93,11 @@ const EditAdmin: React.FC<EditAdminProps> = ({ isEditAdminModalOpen, onClose, ad
               <div className="grid gap-4 mb-4 grid-cols-2">
                 <div className="col-span-2">
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                  <input type="email" name="email" id="email" onChange={(e)=>setEmail(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Enter the new admin email" required />
+                  <input type="email" name="email" id="email" value={email} onChange={(e)=>setEmail(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Enter the new admin email" required />
                 </div>
                 <div className="col-span-2 sm:col-span-1">
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Admin Role</label>
-                  <select id="AdminRole" onChange={(e)=>{setUserRole(e.target.value)}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                  <select id="AdminRole" value={userRole} onChange={(e)=>{setUserRole(e.target.value)}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
                     <option value="Super Admin">Super Admin</option>
                     <option value="Admin">Admin</option>
                   </select>

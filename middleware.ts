@@ -11,6 +11,14 @@ export default function middleware(request: NextRequest) {
     return;
   }
 
+  if (!user && request.url.includes("/admins")) {
+    return NextResponse.redirect(new URL("/signin", request.url));
+  }
+
+  if (!user && request.url.includes("/businesses")) {
+    return NextResponse.redirect(new URL("/signin", request.url));
+  }
+
   if (user && request.url.includes("/signin")) {
     return NextResponse.redirect(new URL("/", request.url));
   }
@@ -22,8 +30,10 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: [
-        '/',
-        '/signin'
-    ]
-}
+  matcher: [
+    '/',
+    '/admins',
+    '/businesses',
+    '/signin'
+  ]
+};
