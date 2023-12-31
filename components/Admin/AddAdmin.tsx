@@ -15,7 +15,7 @@ const AddAdmin: React.FC<AddAdminProps> = ({ isAddAdminModalOpen, onClose }) => 
   const [email, setEmail] = useState<string>("");
   const [userRole, setUserRole] = useState<string>("Super Admin");
   const [loading, setLoading] = useState<boolean>(false);
-  // const router = useRouter();
+  const router = useRouter();
   
   const handleNewAdmin = async (event: any) => {
     event.preventDefault();
@@ -25,7 +25,8 @@ const AddAdmin: React.FC<AddAdminProps> = ({ isAddAdminModalOpen, onClose }) => 
         const response = await createSuperAdmin(email);
         if (response) {
           setLoading(false);
-          // router.push("/admins");
+          router.refresh();
+          onClose();
         }
       } else {
         const response = await createAdmin(email);

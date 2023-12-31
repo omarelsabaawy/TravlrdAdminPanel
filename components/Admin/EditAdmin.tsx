@@ -36,6 +36,7 @@ const EditAdmin: React.FC<EditAdminProps> = ({ isEditAdminModalOpen, onClose, ad
       if (response) {
         setLoading(false);
         router.refresh();
+        onClose();
       }
 
     } catch (error: any) {
