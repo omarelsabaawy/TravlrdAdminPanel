@@ -5,11 +5,17 @@ import Cookies from 'js-cookie';
 // import { useRouter } from 'next/navigation';
 import AddAdminButton from '@/components/Admin/AddAdminButton';
 import AddAdmin from '@/components/Admin/AddAdmin';
+import EditAdminButton from '@/components/Admin/EditAdminButton';
+import DeleteAdminButton from '@/components/Admin/DeleteAdminButton';
+import EditAdmin from '@/components/Admin/EditAdmin';
+import DeleteAdmin from '@/components/Admin/DeleteAdmin';
 
 const Admins: React.FC = () => {
     const userData = Cookies.get('userData');
     const user = userData ? JSON.parse(userData) : null;
     const [isAddAdminModalOpen, setIsAddAdminModalOpen] = useState<boolean>(false);
+    const [isEditAdminModalOpen, setIsEditAdminModalOpen] = useState<boolean>(false);
+    const [isDeleteAdminModalOpen, setIsDeleteAdminModalOpen] = useState<boolean>(false);
 
     const handleOpenAddAdmin = () => {
         setIsAddAdminModalOpen(!isAddAdminModalOpen);
@@ -18,6 +24,23 @@ const Admins: React.FC = () => {
     const handleCloseAddAdmin = () => {
         setIsAddAdminModalOpen(false);
     };
+
+    const handleOpenEditAdmin = () => {
+        setIsEditAdminModalOpen(!isEditAdminModalOpen);
+    };
+  
+    const handleCloseEditAdmin = () => {
+        setIsEditAdminModalOpen(false);
+    };
+
+    const handleOpenDeleteAdmin = () => {
+        setIsDeleteAdminModalOpen(!isDeleteAdminModalOpen);
+    };
+  
+    const handleCloseDeleteAdmin = () => {
+        setIsDeleteAdminModalOpen(false);
+    };
+
     return (
         <div>
             <NavBars />
@@ -25,6 +48,8 @@ const Admins: React.FC = () => {
                 <div className="p-1 sm:ml-64">
                     <div className="relative overflow-x-auto overflow-y-auto min-h-96 max-h-96 rounded-md">
                         <AddAdmin isAddAdminModalOpen={isAddAdminModalOpen} onClose={handleCloseAddAdmin} />
+                        <EditAdmin isEditAdminModalOpen={isEditAdminModalOpen} onClose={handleCloseEditAdmin} />
+                        <DeleteAdmin isDeleteAdminModalOpen={isDeleteAdminModalOpen} onClose={handleCloseDeleteAdmin} />
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 rounded-md">
                             <caption className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
                                 <div className='flex justify-between'>
@@ -67,8 +92,8 @@ const Admins: React.FC = () => {
                                         {
                                             user?.userRole === "Super Admin" ?
                                                 <div>
-                                                    <a href="#" className="font-medium text-blue-600 hover:underline">Edit</a>
-                                                    <a href="#" className="font-medium text-red-600 hover:underline ml-3">Delete</a>
+                                                    <EditAdminButton onClick={handleOpenEditAdmin}/>
+                                                    <DeleteAdminButton onClick={handleOpenDeleteAdmin} />
                                                 </div>
                                                 :
                                                 <div>

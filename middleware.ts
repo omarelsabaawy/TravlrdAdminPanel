@@ -3,6 +3,14 @@ import { NextResponse, NextRequest } from 'next/server';
 export default function middleware(request: NextRequest) {
   const user = request.cookies.get('userData');
 
+  if (!user && request.url.includes("rest-password")){
+    return;
+  }
+
+  if (!user && request.url.includes("confirm-email")){
+    return;
+  }
+
   if (user && request.url.includes("/signin")) {
     return NextResponse.redirect(new URL("/", request.url));
   }
@@ -10,7 +18,7 @@ export default function middleware(request: NextRequest) {
   if (!user && !request.url.includes("/signin")) {
     return NextResponse.redirect(new URL("/signin", request.url));
   }
-  
+
 }
 
 export const config = {
