@@ -12,7 +12,7 @@ import DeleteBusinessButton from '@/components/Business/DeleteBusinessButton';
 import DeleteBusiness from '@/components/Business/DeleteBusinessModal';
 import EditBusinessModal from '@/components/Business/EditBusinessModal';
 import EditBusinessButton from '@/components/Business/EditBusinessButton';
-
+import { Toaster } from 'react-hot-toast';
 const Businesses: React.FC = () => {
     const userData = Cookies.get('userData');
     const user = userData ? JSON.parse(userData) : null;
@@ -120,6 +120,10 @@ const Businesses: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+            />
         </div>
     );
 }

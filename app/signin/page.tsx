@@ -4,6 +4,7 @@ import signIn from "@/lib/services/Auth/signin";
 import { useState } from "react";
 import Cookies from 'js-cookie';
 import { useRouter } from "next/navigation";
+import toast, { Toaster } from 'react-hot-toast';
 
 const SignIn: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -18,6 +19,7 @@ const SignIn: React.FC = () => {
             const data: any = await signIn(email, password);
             if (data.success) {
                 Cookies.set('userData', JSON.stringify(data.user));
+                toast.success("You signed in successfully");
                 router.push('/');
             }
             setLoading(false);
@@ -64,6 +66,10 @@ const SignIn: React.FC = () => {
                     </button>
                 </form>
             </div>
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+            />
         </div>
     );
 }

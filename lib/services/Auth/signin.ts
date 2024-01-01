@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { supabase } from '../../db/supabase';
 import { AuthResponse } from '@supabase/supabase-js';
 
@@ -10,11 +11,11 @@ const signIn = async (email: string, password: string): Promise<any> => {
             .eq('email', email);
 
         if (userExistsError) {
-            throw new Error(`Error checking if user exists: ${userExistsError.message}`);
+            return toast.error(`${userExistsError.message}`);
         }
 
         if (userExists.length === 0 || userExists[0].isDeleted === "true") {
-            throw new Error("Sorry, This user doesn't exist.");
+            return toast.error("Sorry, This user doesn't exist");
         }
 
         const response: AuthResponse = await supabase.auth.signInWithPassword({
@@ -29,13 +30,13 @@ const signIn = async (email: string, password: string): Promise<any> => {
         });
 
         if (response.error || !response.data) {
-            throw new Error(`Error Signing in: ${response.error?.message}`);
+            return toast.error(`${response.error?.message}`);
         }
 
         const user = response.data.user;
 
         if (!user) {
-            throw new Error('User not found');
+            return toast.error("User not found");
         }
     
         const { data, error } = await
@@ -45,7 +46,7 @@ const signIn = async (email: string, password: string): Promise<any> => {
                 .filter('email', "like", `%${user.email}%`);
         
         if (error) {
-            throw new Error('User role not found');
+            return toast.error("User not found");
         }
                 
         return {

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import Spinner from '../Spinner';
 import addNewBusiness from '@/lib/services/Business/addBusiness';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface AddBusinessProps {
   isAddBusinessModalOpen: boolean;
@@ -23,6 +24,7 @@ const AddBusinessModal: React.FC<AddBusinessProps> = ({ isAddBusinessModalOpen, 
             const response = await addNewBusiness(name, image);
             router.push("/businesses");
             setLoading(false);
+            toast.success("Business was added successfully");
             onClose();
         } catch (error: any) {
           setLoading(false);
@@ -98,6 +100,10 @@ const AddBusinessModal: React.FC<AddBusinessProps> = ({ isAddBusinessModalOpen, 
                         </form>
                     </div>
                 </div>
+                <Toaster
+                    position="top-right"
+                    reverseOrder={false}
+                />
             </div>
         </>
     );

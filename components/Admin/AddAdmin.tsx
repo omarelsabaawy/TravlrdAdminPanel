@@ -5,6 +5,7 @@ import createSuperAdmin from '@/lib/services/Admin/createSuperAdmin';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import Spinner from '../Spinner';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface AddAdminProps {
   isAddAdminModalOpen: boolean;
@@ -26,13 +27,16 @@ const AddAdmin: React.FC<AddAdminProps> = ({ isAddAdminModalOpen, onClose }) => 
         if (response) {
           setLoading(false);
           router.refresh();
+          toast.success("Admin was added successfully");
           onClose();
         }
       } else {
         const response = await createAdmin(email);
         if (response) {
           setLoading(false);
-          // router.push("/admins");
+          router.refresh();
+          toast.success("Admin was added successfully");
+          onClose();
         }
       }
     } catch (error: any) {
@@ -112,6 +116,10 @@ const AddAdmin: React.FC<AddAdminProps> = ({ isAddAdminModalOpen, onClose }) => 
             </form>
           </div>
         </div>
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+        />
       </div>
     </>
   );

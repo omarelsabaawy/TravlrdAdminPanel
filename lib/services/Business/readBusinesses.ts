@@ -1,11 +1,12 @@
 import { supabase } from "@/lib/db/supabase";
+import toast from "react-hot-toast";
 
 const getBusinesses = async (): Promise<any> => {
     try {
         const response = await supabase.from('Businesses').select();
 
         if (response.error) {
-            console.error(response.error);
+            return toast.error(`${response.error.message}`);
         }
 
         return {

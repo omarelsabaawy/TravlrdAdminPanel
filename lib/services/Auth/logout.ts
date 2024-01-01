@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { supabase } from '../../db/supabase';
 import Cookies from 'js-cookie';
 
@@ -6,7 +7,7 @@ const Logout = async (): Promise<any> => {
         const {error} = await supabase.auth.signOut();
 
         if (error) {
-            throw new Error(`Error Logout: ${error?.message}`);
+            return toast.error(`${error.message}`);
         }
         
         Cookies.remove('userData');

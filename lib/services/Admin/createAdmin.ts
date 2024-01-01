@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { supabase } from '../../db/supabase';
 import { AuthResponse } from '@supabase/supabase-js';
 
@@ -14,13 +15,13 @@ const createAdmin = async (email: string): Promise<any> => {
       });
 
       if (response.error || !response.data) {
-          throw new Error(`Error creating admin: ${response.error?.message}`);
+        return toast.error(`${response.error?.message}`);
       }
 
       const user = response.data.user;
 
       if (!user) {
-          throw new Error('User not found in response');
+        return toast.error('User not found');
       }
       
       await supabase.auth.resetPasswordForEmail(email, {

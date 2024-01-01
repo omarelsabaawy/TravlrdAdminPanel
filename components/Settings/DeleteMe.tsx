@@ -5,6 +5,7 @@ import Spinner from '../Spinner';
 import { useRouter } from 'next/navigation';
 import deleteMe from '@/lib/services/Settings/deleteMe';
 import Cookies from 'js-cookie';
+import toast, { Toaster } from 'react-hot-toast';
 interface DeleteMeProps {
   isDeleteAdminModalOpen: boolean;
   adminId: string;
@@ -25,6 +26,7 @@ const DeleteMe: React.FC<DeleteMeProps> = ({ isDeleteAdminModalOpen, onClose, ad
         Cookies.remove('userData');
         setLoading(false);
         onClose();
+        toast.success("Your account was deactivated.");
         router.push('/signin');
       }
     } catch (error: any) {
@@ -70,6 +72,10 @@ const DeleteMe: React.FC<DeleteMeProps> = ({ isDeleteAdminModalOpen, onClose, ad
             </div>
           </div>
         </form>
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+        />
       </div>
     </>
   );

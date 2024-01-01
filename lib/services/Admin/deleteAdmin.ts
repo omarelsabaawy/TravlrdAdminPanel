@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { supabase } from '../../db/supabase';
 
 const deleteAdmin = async (adminId: string): Promise<any> => {
@@ -9,7 +10,7 @@ const deleteAdmin = async (adminId: string): Promise<any> => {
             .eq('user_id', adminId);
         
         if (error) {
-            throw new Error(error.message);
+            return toast.error(`${error.message}`);
         }
 
         return true;

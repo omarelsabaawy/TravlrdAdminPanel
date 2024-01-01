@@ -9,6 +9,7 @@ import DeleteAdminButton from '@/components/Admin/DeleteAdminButton';
 import EditAdmin from '@/components/Admin/EditAdmin';
 import DeleteAdmin from '@/components/Admin/DeleteAdmin';
 import getAdmins from '@/lib/services/Admin/getAdmins';
+import { Toaster } from 'react-hot-toast';
 
 const Admins: React.FC = () => {
     const userData = Cookies.get('userData');
@@ -126,6 +127,10 @@ const Admins: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+            />
         </div>
     );
 }

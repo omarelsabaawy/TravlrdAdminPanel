@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Spinner from '../Spinner';
 import { useRouter } from 'next/navigation';
 import deleteBusiness from '@/lib/services/Business/deleteBusiness';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface DeleteBusinessProps {
     isDeleteBusinessModalOpen: boolean;
@@ -23,6 +24,7 @@ const DeleteBusinessModal: React.FC<DeleteBusinessProps> = ({ isDeleteBusinessMo
       if (response) {
         setLoading(false);
         router.refresh();
+        toast.success("Business was deleted successfully");
         onClose();
       }
     } catch (error: any) {
@@ -68,6 +70,10 @@ const DeleteBusinessModal: React.FC<DeleteBusinessProps> = ({ isDeleteBusinessMo
             </div>
           </div>
         </form>
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+        />
       </div>
     </>
   );

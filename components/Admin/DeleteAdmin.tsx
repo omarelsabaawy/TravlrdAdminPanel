@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Spinner from '../Spinner';
 import deleteAdmin from '@/lib/services/Admin/deleteAdmin';
 import { useRouter } from 'next/navigation';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface DeleteAdminProps {
   isDeleteAdminModalOpen: boolean;
@@ -23,6 +24,7 @@ const DeleteAdmin: React.FC<DeleteAdminProps> = ({ isDeleteAdminModalOpen, onClo
       
       if (response) {
         setLoading(false);
+        toast.success("Admin was deactivated successfully");
         router.refresh();
         onClose();
       }
@@ -69,6 +71,10 @@ const DeleteAdmin: React.FC<DeleteAdminProps> = ({ isDeleteAdminModalOpen, onClo
             </div>
           </div>
         </form>
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+        />
       </div>
     </>
   );

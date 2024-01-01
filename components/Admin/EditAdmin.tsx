@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Spinner from '../Spinner';
 import updateAdmin from '@/lib/services/Admin/updateAdmin';
 import { useRouter } from 'next/navigation';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface EditAdminProps {
   isEditAdminModalOpen: boolean;
@@ -36,6 +37,7 @@ const EditAdmin: React.FC<EditAdminProps> = ({ isEditAdminModalOpen, onClose, ad
       if (response) {
         setLoading(false);
         router.refresh();
+        toast.success("Admin was updated successfully");
         onClose();
       }
 
@@ -115,6 +117,10 @@ const EditAdmin: React.FC<EditAdminProps> = ({ isEditAdminModalOpen, onClose, ad
             </form>
           </div>
         </div>
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+        />
       </div>
     </>
   );

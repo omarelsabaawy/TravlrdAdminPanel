@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import Spinner from '../Spinner';
 import editBusiness from '@/lib/services/Business/editBusiness';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface EditBusinessProps {
     isEditBusinessModalOpen: boolean;
@@ -25,6 +26,7 @@ const EditBusinessModal: React.FC<EditBusinessProps> = ({ isEditBusinessModalOpe
             const response = await editBusiness(businessId, name, businessImage, image);
             router.push("/businesses");
             setLoading(false);
+            toast.success("Business was updated successfully");
             onClose();
         } catch (error: any) {
           setLoading(false);
@@ -99,6 +101,10 @@ const EditBusinessModal: React.FC<EditBusinessProps> = ({ isEditBusinessModalOpe
                         </form>
                     </div>
                 </div>
+                <Toaster
+                    position="top-right"
+                    reverseOrder={false}
+                />
             </div>
         </>
     );

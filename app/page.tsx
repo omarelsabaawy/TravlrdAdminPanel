@@ -2,6 +2,7 @@
 import NavBars from '@/components/NavBars';
 import PieChart from '@/components/Home/PieChart';
 import LineChart from '@/components/Home/LineChart';
+import { Toaster } from 'react-hot-toast';
 
 const Home = () => {
   return (
@@ -21,6 +22,10 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
     </div>
   );
 };

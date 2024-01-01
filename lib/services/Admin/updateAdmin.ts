@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { supabase } from '../../db/supabase';
 
 const updateAdmin = async (adminId: string, adminEmail: string, adminRole: string): Promise<any> => {
@@ -12,7 +13,7 @@ const updateAdmin = async (adminId: string, adminEmail: string, adminRole: strin
             .eq("user_id", adminId);
         
         if (error) {
-            throw new Error("Error while updating the admin" + error.message);
+            return toast.error(`${error.message}`);
         }
         
         return true;

@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { supabase } from '../../db/supabase';
 
 const resetPassword = async (newPassword: string): Promise<any> => {
@@ -6,7 +7,7 @@ const resetPassword = async (newPassword: string): Promise<any> => {
         const response: any = await supabase.auth.updateUser({ password: newPassword });
 
         if (!response.data || response.error) {
-            throw new Error(`Error Resetting password: ${response.error?.message}`);
+            return toast.error(`${response.error.message}`);
         }
 
         return true;

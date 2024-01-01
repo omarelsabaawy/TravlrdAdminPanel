@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/db/supabase";
+import toast from "react-hot-toast";
 
 const deleteBusiness = async (businessId: string, image: string): Promise<any> => {
     try {
@@ -8,7 +9,7 @@ const deleteBusiness = async (businessId: string, image: string): Promise<any> =
             .eq('id', businessId);
         
         if (error) {
-            console.log(error);
+            return toast.error(`${error.message}`);
         }
 
         const folder = image.split('/').slice(-2)[0];
@@ -18,8 +19,6 @@ const deleteBusiness = async (businessId: string, image: string): Promise<any> =
             .from('images')
             .remove([`${folder}/${file}`]);
         
-        console.log(response);
-
         return true;
     } catch (error) {
         console.log(error);

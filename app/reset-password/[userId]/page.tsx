@@ -1,5 +1,6 @@
 // pages/reset-password/[token].tsx
 "use client"
+import Spinner from '@/components/Spinner';
 import resetPassword from '@/lib/services/Auth/resetPassword';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -12,10 +13,12 @@ const ResetPasswordPage = ({ params }: {
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handlePasswordReset = async (event: any): Promise<any> => {
     event.preventDefault();
+    setLoading(true);
     
     if (password !== confirmPassword) {
       alert("passwords should be the same");
@@ -26,8 +29,10 @@ const ResetPasswordPage = ({ params }: {
 
     if (response) {
       router.push('/signin');
+      setLoading(false);
     } else {
       alert("failed");
+      setLoading(false);
     }
   };
 
@@ -59,7 +64,7 @@ const ResetPasswordPage = ({ params }: {
                           className="bg-gray-50 border border-gray-900 text-gray-900 sm:text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
                 </div>
                 <div className="flex items-center justify-center">
-                  <button type="submit" className="px-5 py-3 text-base font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Reset your password</button>
+            <button type="submit" className="px-5 py-3 text-base font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{loading ? <Spinner /> : "Reset your password"}</button>
                 </div>
             </form>
         </div>

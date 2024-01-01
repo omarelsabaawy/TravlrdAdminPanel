@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/db/supabase";
+import toast from "react-hot-toast";
 import { v4 as uuidv4 } from 'uuid';
 
 const addNewBusiness = async (name: string, image: any): Promise<any> => {
@@ -11,7 +12,7 @@ const addNewBusiness = async (name: string, image: any): Promise<any> => {
             .upload(response.data.user?.id + "/" + uuidv4(), image);
         
         if (error) {
-            console.error(error);
+            return toast.error(`${error.message}`);
         }
 
         const imagePath = data?.path;
@@ -25,7 +26,7 @@ const addNewBusiness = async (name: string, image: any): Promise<any> => {
                 });
         
         if (newBusiness.error) {
-            console.log(error);
+            return toast.error(`${newBusiness.error.message}`);
         }
 
         return true;

@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { supabase } from '../../db/supabase';
 
 const getAdmins = async (userRole: string): Promise<any> => {
@@ -9,7 +10,7 @@ const getAdmins = async (userRole: string): Promise<any> => {
     const { data, error } = await query;
 
     if (error) {
-        throw new Error("Error while fetching the admins " + error.message);
+        return toast.error(`${error.message}`);
     }
 
     return data;

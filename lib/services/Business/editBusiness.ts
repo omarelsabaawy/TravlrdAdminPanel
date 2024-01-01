@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/db/supabase";
+import toast from "react-hot-toast";
 import { v4 as uuidv4 } from 'uuid';
 
 const editBusiness = async (id: string, name: string, oldImageURL: string, image: any): Promise<any> => {
@@ -9,8 +10,9 @@ const editBusiness = async (id: string, name: string, oldImageURL: string, image
         const response = await supabase.from("Businesses").update({ name: name }).eq("id", id);
             
         if (response.error) {
-            throw new Error("Error while updating the business");
+            return toast.error("Error while updating the business");
         }
+        
     }
 
     if (image) {
@@ -34,58 +36,11 @@ const editBusiness = async (id: string, name: string, oldImageURL: string, image
         }).eq("id", id);
         
         if (updateResponse.error) {
-            console.log(error);
+            return toast.error(`${updateResponse.error.message}`);
         }
     }
 
     return true;
-    // try {
-    //     if (name !== "" && image !== null) {
-    //         const folder = oldImageURL.split('/').slice(-2)[0];
-    //         const file = oldImageURL.split('/').slice(-2)[1];
-
-    //         const { data, error } = await supabase
-    //             .storage
-    //             .from('avatars')
-    //             .update(`${folder}/${file}`, image);
-            
-    //         if (error) {
-    //             throw new Error("Error while updating your image");
-    //         }
-
-    //         const response = await supabase.from("Businesses").update({ name: name }).eq("id", id);
-            
-    //         if (response.error) {
-    //             throw new Error("Error while updating the business");
-    //         }
-
-    //         return true;
-    //     } else if (image !== "") {
-    //         const folder = oldImageURL.split('/').slice(-2)[0];
-    //         const file = oldImageURL.split('/').slice(-2)[1];
-
-    //         const { data, error } = await supabase
-    //             .storage
-    //             .from('avatars')
-    //             .update(`${folder}/${file}`, image);
-            
-    //         if (error) {
-    //             throw new Error("Error while updating your image");
-    //         }
-
-    //         return true;
-    //     } else {
-    //         const response = await supabase.from("Businesses").update({ name: name }).eq("id", id);
-            
-    //         if (response.error) {
-    //             throw new Error("Error while updating the business");
-    //         }
-
-    //         return true;
-    //     }
-    // } catch (error) {
-    //     console.log(error);
-    // }
 };
 
 export default editBusiness;
