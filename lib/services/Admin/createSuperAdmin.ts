@@ -32,7 +32,8 @@ const createSuperAdmin = async (email: string): Promise<any> => {
       .upsert({
         user_id: user.id,
         email: user.email,
-        user_role: 'Super Admin'
+        user_role: 'Super Admin',
+        isDeleted: false
       });
 
       return true;
