@@ -1,7 +1,5 @@
 "use client"
 
-import createAdmin from '@/lib/services/Admin/createAdmin';
-import createSuperAdmin from '@/lib/services/Admin/createSuperAdmin';
 import React, { useState } from 'react';
 import Spinner from '../Spinner';
 import deleteAdmin from '@/lib/services/Admin/deleteAdmin';

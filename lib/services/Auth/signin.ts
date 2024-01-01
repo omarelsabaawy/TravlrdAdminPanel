@@ -4,10 +4,17 @@ import { AuthResponse } from '@supabase/supabase-js';
 const signIn = async (email: string, password: string): Promise<any> => {
     try {
 
-        const userExists: any = await supabase.from("Users").select().eq("email", email);
+        const { data: userExists, error: userExistsError } = await supabase
+            .from('Users')
+            .select()
+            .eq('email', email);
 
-        if (userExists.isDeleted === "true") {
-            throw new Error("User Doesn't exists");
+        if (userExistsError) {
+            throw new Error(`Error checking if user exists: ${userExistsError.message}`);
+        }
+
+        if (userExists.length === 0 || userExists[0].isDeleted === "true") {
+            throw new Error("Sorry, This user doesn't exist.");
         }
 
         const response: AuthResponse = await supabase.auth.signInWithPassword({

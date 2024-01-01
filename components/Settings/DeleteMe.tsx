@@ -1,11 +1,10 @@
 "use client"
 
-import createAdmin from '@/lib/services/Admin/createAdmin';
-import createSuperAdmin from '@/lib/services/Admin/createSuperAdmin';
 import React, { useState } from 'react';
 import Spinner from '../Spinner';
 import { useRouter } from 'next/navigation';
-
+import deleteMe from '@/lib/services/Settings/deleteMe';
+import Cookies from 'js-cookie';
 interface DeleteMeProps {
   isDeleteAdminModalOpen: boolean;
   adminId: string;
@@ -20,13 +19,14 @@ const DeleteMe: React.FC<DeleteMeProps> = ({ isDeleteAdminModalOpen, onClose, ad
     event.preventDefault();
     try {
       setLoading(true);
-    //   const response = await deleteAdmin(adminId);
+      const response = await deleteMe(adminId);
       
-    //   if (response) {
+      if (response) {
+        Cookies.remove('userData');
         setLoading(false);
-        router.push('/signin');
         onClose();
-    //   }
+        router.push('/signin');
+      }
     } catch (error: any) {
       setLoading(false);
       console.error(error.message);

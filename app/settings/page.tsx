@@ -21,11 +21,6 @@ function Settings() {
         setIsDeleteAdminModalOpen(false);
     };
 
-
-  const handleDeleteAccount = () => {
-
-  }
-
   return (
     <div>
       <NavBars />
