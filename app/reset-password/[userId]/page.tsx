@@ -4,6 +4,7 @@ import Spinner from '@/components/Spinner';
 import resetPassword from '@/lib/services/Auth/resetPassword';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const ResetPasswordPage = ({ params }: {
   params: {
@@ -28,6 +29,7 @@ const ResetPasswordPage = ({ params }: {
     const response: any = await resetPassword(password);
 
     if (response) {
+      toast.success("Thanks for setting your password.")
       router.push('/signin');
       setLoading(false);
     } else {
