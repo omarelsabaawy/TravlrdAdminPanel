@@ -8,6 +8,10 @@ function Settings() {
   const userData = Cookies.get('userData');
   const user = userData ? JSON.parse(userData) : null;
 
+  const handleDeleteAccount = () => {
+
+  }
+
   return (
     <div>
       <NavBars />
@@ -26,6 +30,7 @@ function Settings() {
                   </p>
                   <div className="my-5 px-6">
                     <button
+                      onClick={handleDeleteAccount}
                       className="w-full justify-center text-gray-200 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-red-700 hover:bg-red-600 hover:text-white"
                     >
                       Delete your account

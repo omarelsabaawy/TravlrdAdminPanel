@@ -32,7 +32,8 @@ const createAdmin = async (email: string): Promise<any> => {
       .upsert({
         user_id: user.id,
         email: user.email,
-        user_role: 'Admin'
+        user_role: 'Admin',
+        isDeleted: false
       });
 
       return true;
