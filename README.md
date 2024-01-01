@@ -1,5 +1,5 @@
-### Travlrd Admin Panel
-# Vercel URL https://travlrd-admin-panel.vercel.app/
+# Travlrd Admin Panel
+## Vercel URL https://travlrd-admin-panel.vercel.app/
 
 ## Getting Started
 
