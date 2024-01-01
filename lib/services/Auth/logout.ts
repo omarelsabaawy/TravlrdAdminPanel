@@ -11,9 +11,7 @@ const Logout = async (): Promise<any> => {
         
         Cookies.remove('userData');
 
-        return {
-            success: true
-        }
+        return true;
 
     } catch (error: any) {
         console.error('Error Sign in:', error.message);

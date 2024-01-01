@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 
-export default function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const user = request.cookies.get('userData');
 
   if (!user && request.url.includes("rest-password")){
@@ -34,6 +34,7 @@ export const config = {
     '/',
     '/admins',
     '/businesses',
+    '/settings',
     '/signin'
   ]
 };

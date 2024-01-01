@@ -27,7 +27,8 @@ function LineChart() {
     const fetchData = async () => {
       try {
         const userCountsPerDate = await lineChartData();
-        const sortedDates = Object.keys(userCountsPerDate).sort();
+
+        const sortedDates = Object.keys(userCountsPerDate);
 
         const userCounts = sortedDates.map((date) => userCountsPerDate[date]);
 
@@ -42,14 +43,17 @@ function LineChart() {
   }, []);
 
   return (
-    <Chart
+    <div>
+      <h2 className='text-white mb-2'>Total Admins were created</h2>
+      <Chart
       className="bg-white rounded-md"
       options={chartOptions}
       series={[{ name: 'Users', data }]}
       type='line'
-      height={230}
-      width={600}
+      height={400}
+      width={500}
     />
+    </div>
   );
 }
 

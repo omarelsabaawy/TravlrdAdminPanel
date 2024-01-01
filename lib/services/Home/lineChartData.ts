@@ -10,7 +10,7 @@ export const lineChartData = async (): Promise<any> => {
             );
 
         const data = response?.data;
-       
+
         const dayCounts: { [day: string]: number } = {};
 
         data?.forEach((item) => {
@@ -23,7 +23,15 @@ export const lineChartData = async (): Promise<any> => {
             }
         });
 
-        return dayCounts;
+        // Sort the dates in ascending order
+        const sortedDates = Object.keys(dayCounts).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+
+        const sortedDayCounts: { [day: string]: number } = {};
+        sortedDates.forEach((day) => {
+            sortedDayCounts[day] = dayCounts[day];
+        });
+
+        return sortedDayCounts;
 
     } catch (error: any) {
         console.error(`Error fetching user data: ${error.message}`);

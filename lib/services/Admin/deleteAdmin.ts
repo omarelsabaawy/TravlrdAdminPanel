@@ -5,7 +5,7 @@ const deleteAdmin = async (adminId: string): Promise<any> => {
         
         const { error } = await supabase
             .from('Users')
-            .delete()
+            .update({isDeleted: "true"})
             .eq('user_id', adminId);
         
         if (error) {

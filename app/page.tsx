@@ -7,15 +7,15 @@ const Home = () => {
   return (
     <div>
       <NavBars />
-      <div className="flex-grow p-1">
-        <div className="p-1 sm:ml-64">
-          <div className="p-1">
-            <div className="grid grid-cols-1 gap-4 mb-1">
-              <div className="flex items-center justify-left mt-2 h-50 rounded">
+      <div className="flex-grow ">
+        <div className=" sm:ml-60">
+          <div className="">
+            <div className="grid grid-cols-1 md:grid-cols-2 mb-1 p-0">
+              <div className="flex items-center justify-center h-50 rounded">
                 <PieChart />
               </div>
-              <div className="flex items-center justify-left mt-2 h-50 rounded">
-                <LineChart/>
+              <div className="flex items-center justify-center mt-2 h-50 rounded">
+                <LineChart />
               </div>
             </div>
           </div>

@@ -94,7 +94,7 @@ const EditAdmin: React.FC<EditAdminProps> = ({ isEditAdminModalOpen, onClose, ad
               <div className="grid gap-4 mb-4 grid-cols-2">
                 <div className="col-span-2">
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                  <input type="email" name="email" id="email" value={email} onChange={(e)=>setEmail(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Enter the new admin email" required />
+                  <input type="email" name="email" id="email" value={email} onChange={(e)=>setEmail(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Enter the new admin email" disabled />
                 </div>
                 <div className="col-span-2 sm:col-span-1">
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Admin Role</label>

@@ -6,7 +6,7 @@ const signIn = async (email: string, password: string): Promise<any> => {
 
         const userExists: any = await supabase.from("Users").select().eq("email", email);
 
-        if (userExists.data.length === 0) {
+        if (userExists.isDeleted === "true") {
             throw new Error("User Doesn't exists");
         }
 

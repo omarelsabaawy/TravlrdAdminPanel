@@ -14,10 +14,8 @@ function SideBar() {
     };
 
     const logout = async () => {
-        const response = await Logout();
-        if (response) {
-            router.push('/signin');
-        }
+        await Logout();
+        router.push('/signin');
     }
     
     return (

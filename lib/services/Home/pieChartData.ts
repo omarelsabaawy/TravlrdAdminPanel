@@ -2,7 +2,7 @@ import { supabase } from "@/lib/db/supabase";
 
 const fetchUserData = async (role: string): Promise<number> => {
   try {
-    const response: any = await supabase.from('Users').select().filter('user_role', 'eq', role);
+    const response: any = await supabase.from('Users').select().eq("isDeleted", "false").filter('user_role', 'eq', role);
     return response.data.length;
   } catch (error: any) {
     console.error(`Error fetching ${role} data: ${error.message}`);

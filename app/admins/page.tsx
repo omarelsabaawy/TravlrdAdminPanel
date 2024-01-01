@@ -88,7 +88,7 @@ const Admins: React.FC = () => {
                                     </th>
                                     <th scope="col" className="px-6 py-3">
                                         {
-                                            user?.userRole === "Super Admin" ? "Actions" : <del>Actions</del>
+                                            user?.userRole === "Super Admin" ? "Actions" : <></>
                                         }
                                     </th>
                                 </tr>
@@ -115,10 +115,7 @@ const Admins: React.FC = () => {
                                                         <DeleteAdminButton onClick={() => handleOpenDeleteAdmin(admin.user_id)} />
                                                     </div>
                                                 ) : (
-                                                    <div>
-                                                        <del className="font-medium text-blue-600">Edit</del>
-                                                        <del className="font-medium text-red-600 ml-3">Delete</del>
-                                                    </div>
+                                                    <></>
                                                 )}
                                             </td>
                                         </tr>

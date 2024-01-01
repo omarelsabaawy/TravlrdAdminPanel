@@ -25,7 +25,10 @@ function PieChart() {
   }, []);
 
   return (
-    <Chart className="bg-white rounded-md" options={chartOptions} series={data} type='pie' height={400} width={400} />
+    <div>
+      <h2 className='text-white mb-2'>Existing Super Admins vs Admins</h2>
+      <Chart className="bg-white rounded-md" options={chartOptions} series={data} type='pie' height={450} width={500} />
+    </div>
   );
 }
 
