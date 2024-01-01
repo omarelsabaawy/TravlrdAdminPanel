@@ -3,15 +3,8 @@
 import React from 'react'
 import NavBars from '@/components/NavBars';
 import Cookies from 'js-cookie';
-// import { useRouter } from 'next/navigation';
 
 const Businesses: React.FC = () => {
-    // const user = Cookies.get('userData');
-    // const router = useRouter();
-
-    // if (!user) {
-    //     router.push('/signin');
-    // }
     
     return (
         <div>

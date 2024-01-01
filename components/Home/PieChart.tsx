@@ -33,7 +33,7 @@ function PieChart() {
   return (
     <div>
       <h2 className='text-white mb-2'>Existing Super Admins vs Admins</h2>
-      {loading ? <Spinner /> : <Chart className="bg-white rounded-md" options={chartOptions} series={data} type='pie' height={450} width={500} />
+      {loading ? <Spinner /> : <Chart className="bg-white rounded-md" options={chartOptions} series={data} type='pie' height={450} width={450} />
       }
     </div>
   );

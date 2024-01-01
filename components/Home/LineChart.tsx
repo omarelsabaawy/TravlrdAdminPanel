@@ -56,8 +56,8 @@ function LineChart() {
       options={chartOptions}
       series={[{ name: 'Users', data }]}
       type='line'
-      height={400}
-      width={500}
+      height={350}
+      width={450}
     />)}
     </div>
   );
